@@ -1,12 +1,18 @@
 {
-  "publications": 10,
-  "subscriptions": 2,
+  "publications": 0,
+  "subscriptions": 10,
   "constraints": [
     {
       "type": "field",
       "field": "temperature",
       "operator": "=",
       "percent": 50
+    },
+    {
+      "type": "field",
+      "field": "wind",
+      "operator": "=",
+      "percent": 60
     }
   ],
   "threads": 1

@@ -4,6 +4,7 @@ import json
 import time
 import queue
 import threading
+import Operators as O
 
 EPS = 10e-6
 
@@ -34,9 +35,9 @@ def generateSubscription(constraints, allowed):
 def updateSubscription(subscription, constraints, operators):
     for cons in constraints:
         subscription[cons['field']]['operator'] = cons['operator']
-    for field in subscription:
-        if subscription[field]['operator'] is None:
-            subscription[field]['operator'] = 0
+    for fld in subscription:
+        if subscription[fld]['operator'] is None:
+            subscription[fld]['operator'] = str(np.random.choice(allowedOperators[fld]))
     return subscription
 
 
@@ -47,6 +48,13 @@ def frequencyGenerator():
             results[item['index']] = generatePublication()
         else:
             results[item['index']] = generateSubscription(item['constraints'], allowedFields)
+
+
+def operatorGenerator():
+    while not Queue.empty():
+        item = Queue.get()
+        if item['type'] == 'sub':
+            results[item['index']] = updateSubscription(results[item['index']], item['constraints'], allowedOperators)
 
 
 def generate(generator):
@@ -131,6 +139,51 @@ if __name__ == "__main__":
         Queue.put(element)
 
     generate(frequencyGenerator)
+
+    fieldIndices = {}
+    allowedOperators = {}
+    for field in PI.PublicationItem.keys():
+        fieldIndices[field] = []
+        allowedOperators[field] = O.AllowedOperators[field]()
+
+    for index in subscriptionIndices:
+        for field in results[index]:
+            fieldIndices[field].append(index)
+        toGenerate[index]['constraints'] = []
+
+    for constraint in config['constraints']:
+        if constraint['type'] == "frequency":
+            continue
+
+        percent = constraint['percent']
+
+        if constraint['operator'] == "<":
+            percent = np.random.uniform(EPS, percent)
+        elif constraint['operator'] == "<=":
+            percent = np.random.uniform(EPS, percent + EPS)
+        elif constraint['operator'] == ">":
+            percent = np.random.uniform(percent + EPS, 100)
+        elif constraint['operator'] == ">=":
+            percent = np.random.uniform(percent, 100)
+
+        indices = np.random.choice(fieldIndices[constraint['field']],
+                                   round(percent * len(fieldIndices[constraint['field']]) / 100), replace=False)
+
+        queueConstraint = {
+            'field': constraint['field'],
+            'operator': constraint['operator']
+        }
+
+        if constraint['operator'] in allowedOperators[constraint['field']]:
+            allowedOperators[constraint['field']].remove(constraint['operator'])
+
+        for index in indices:
+            toGenerate[index]['constraints'].append(queueConstraint)
+
+    for index in subscriptionIndices:
+        Queue.put(toGenerate[index])
+
+    generate(operatorGenerator)
 
     finalResults = {
         "publications": results[:config['publications']],

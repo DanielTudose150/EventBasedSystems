@@ -1,127 +1,151 @@
 {
-  "publications": [
-    {
-      "stationid": 6,
-      "city": "Sibiu",
-      "temperature": 8,
-      "rain": 1.0,
-      "wind": 26,
-      "direction": "E",
-      "date": "2023-04-15"
-    },
-    {
-      "stationid": 8,
-      "city": "Craiova",
-      "temperature": 35,
-      "rain": 0.2,
-      "wind": 5,
-      "direction": "S",
-      "date": "2023-07-22"
-    },
-    {
-      "stationid": 5,
-      "city": "Cluj-Napoca",
-      "temperature": 8,
-      "rain": 0.6,
-      "wind": 37,
-      "direction": "N",
-      "date": "2023-08-24"
-    },
-    {
-      "stationid": 1,
-      "city": "Constanta",
-      "temperature": 17,
-      "rain": 0.6,
-      "wind": 26,
-      "direction": "S",
-      "date": "2023-01-25"
-    },
-    {
-      "stationid": 8,
-      "city": "Timisoara",
-      "temperature": 11,
-      "rain": 0.7,
-      "wind": 28,
-      "direction": "NE",
-      "date": "2023-05-31"
-    },
-    {
-      "stationid": 3,
-      "city": "Oradea",
-      "temperature": 13,
-      "rain": 0.5,
-      "wind": 34,
-      "direction": "N",
-      "date": "2023-06-16"
-    },
-    {
-      "stationid": 4,
-      "city": "Constanta",
-      "temperature": 7,
-      "rain": 0.8,
-      "wind": 25,
-      "direction": "W",
-      "date": "2023-11-5"
-    },
-    {
-      "stationid": 4,
-      "city": "Brasov",
-      "temperature": 17,
-      "rain": 0.7,
-      "wind": 6,
-      "direction": "NW",
-      "date": "2023-01-16"
-    },
-    {
-      "stationid": 7,
-      "city": "Brasov",
-      "temperature": 10,
-      "rain": 1.0,
-      "wind": 31,
-      "direction": "SW",
-      "date": "2023-10-10"
-    },
-    {
-      "stationid": 9,
-      "city": "Constanta",
-      "temperature": 21,
-      "rain": 0.3,
-      "wind": 49,
-      "direction": "E",
-      "date": "2023-02-9"
-    }
-  ],
+  "publications": [],
   "subscriptions": [
+    {},
     {
-      "date": {
-        "operator": null,
-        "value": "2023-07-22"
-      },
       "direction": {
-        "operator": null,
-        "value": "NW"
-      },
-      "stationid": {
-        "operator": null,
-        "value": 8
-      },
-      "wind": {
-        "operator": null,
-        "value": 2
-      },
-      "city": {
-        "operator": null,
-        "value": "Iasi"
-      },
-      "temperature": {
-        "operator": null,
-        "value": 11
+        "operator": "=",
+        "value": "NE"
       }
     },
     {
+      "temperature": {
+        "operator": "=",
+        "value": 8
+      },
+      "wind": {
+        "operator": "=",
+        "value": 46
+      }
+    },
+    {
+      "date": {
+        "operator": "!=",
+        "value": "2023-05-22"
+      },
+      "temperature": {
+        "operator": "<=",
+        "value": 27
+      },
+      "wind": {
+        "operator": "=",
+        "value": 36
+      }
+    },
+    {
+      "wind": {
+        "operator": "=",
+        "value": 12
+      }
+    },
+    {
+      "date": {
+        "operator": "!=",
+        "value": "2023-11-25"
+      },
+      "rain": {
+        "operator": "!=",
+        "value": 0.2
+      },
+      "direction": {
+        "operator": "!=",
+        "value": "N"
+      },
+      "stationid": {
+        "operator": "<",
+        "value": 9
+      }
+    },
+    {
+      "rain": {
+        "operator": "!=",
+        "value": 0.2
+      },
+      "direction": {
+        "operator": "!=",
+        "value": "E"
+      },
+      "date": {
+        "operator": "=",
+        "value": "2023-05-29"
+      },
+      "temperature": {
+        "operator": "<",
+        "value": 22
+      },
+      "wind": {
+        "operator": "=",
+        "value": 21
+      }
+    },
+    {
+      "stationid": {
+        "operator": ">",
+        "value": 1
+      },
+      "date": {
+        "operator": "=",
+        "value": "2023-05-23"
+      },
       "city": {
-        "operator": null,
-        "value": "Timisoara"
+        "operator": "=",
+        "value": "Sibiu"
+      },
+      "direction": {
+        "operator": "=",
+        "value": "E"
+      },
+      "temperature": {
+        "operator": ">=",
+        "value": 6
+      },
+      "wind": {
+        "operator": "<",
+        "value": 19
+      }
+    },
+    {
+      "direction": {
+        "operator": "!=",
+        "value": "SW"
+      },
+      "date": {
+        "operator": "=",
+        "value": "2023-06-20"
+      },
+      "stationid": {
+        "operator": "<",
+        "value": 3
+      },
+      "city": {
+        "operator": "=",
+        "value": "Cluj-Napoca"
+      },
+      "temperature": {
+        "operator": "=",
+        "value": 7
+      }
+    },
+    {
+      "date": {
+        "operator": "!=",
+        "value": "2023-11-28"
+      },
+      "city": {
+        "operator": "=",
+        "value": "Iasi"
+      },
+      "stationid": {
+        "operator": "<=",
+        "value": 8
+      },
+      "direction": {
+        "operator": "=",
+        "value": "E"
+      },
+      "wind": {
+        "operator": "<=",
+        "value": 16
       }
     }
   ]
