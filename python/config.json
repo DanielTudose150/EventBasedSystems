@@ -1,0 +1,13 @@
+{
+  "publications": 10,
+  "subscriptions": 0,
+  "constraints": [
+    {
+      "type": "field",
+      "field": "temperature",
+      "operator": "=",
+      "percent": "50"
+    }
+  ],
+  "threads": 1
+}

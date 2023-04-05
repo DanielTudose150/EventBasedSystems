@@ -25,8 +25,8 @@ def get_temp():
 
 
 def get_rain():
-    """Get a random value from the (0, 2) interval from a uniform distribution. The result is rounded to 1 digit."""
-    return round(np.random.uniform(0, 2), 1)
+    """Get a random value from the (0, 1) interval from a uniform distribution. The result is rounded to 1 digit."""
+    return round(np.random.uniform(0, 1), 1)
 
 
 def get_wind():
