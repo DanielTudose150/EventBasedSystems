@@ -1,12 +1,12 @@
 {
   "publications": 10,
-  "subscriptions": 0,
+  "subscriptions": 2,
   "constraints": [
     {
       "type": "field",
       "field": "temperature",
       "operator": "=",
-      "percent": "50"
+      "percent": 50
     }
   ],
   "threads": 1

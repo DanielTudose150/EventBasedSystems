@@ -12,19 +12,19 @@ DATES = dates.DATES
 
 
 def get_station_ids():
-    return np.random.choice(STATION_IDS, 1)[0]
+    return int(np.random.choice(STATION_IDS, 1)[0])
 
 
 def get_cities():
-    return np.random.choice(CITIES, 1)[0]
+    return str(np.random.choice(CITIES, 1)[0])
 
 
 def get_direction():
-    return np.random.choice(DIRECTIONS, 1)[0]
+    return str(np.random.choice(DIRECTIONS, 1)[0])
 
 
 def get_date():
-    return np.random.choice(DATES, 1)[0]
+    return str(np.random.choice(DATES, 1)[0])
 
 
 GET_STATIONID = get_station_ids
