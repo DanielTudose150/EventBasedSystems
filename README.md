@@ -10,7 +10,7 @@ Repository for the Event Based System FII course.
 {
     "publications": integer,
     "subscriptions": integer,
-    constraints: [
+    "constraints": [
         {
             "type": {"frequency", "operator"},
             "field": {"stationid", "city", "temperature", "rain", "wind", "direction", "date"},
