@@ -194,5 +194,8 @@ if __name__ == "__main__":
 
     print(f"Time taken = {endTime - startTime}")
 
+    with open('time.txt', 'w') as fd:
+        fd.write(f"Time taken = {endTime - startTime}")
+
     with open('results.json', 'w') as fd:
         json.dump(finalResults, fd, indent=2)
