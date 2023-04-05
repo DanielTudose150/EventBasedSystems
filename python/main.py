@@ -11,18 +11,18 @@ EPS = 10e-6
 
 def generatePublication():
     publication = {}
-    for field in PI.PublicationItem:
-        publication[field] = PI.PublicationItem[field]()
+    for fld in PI.PublicationItem:
+        publication[fld] = PI.PublicationItem[fld]()
     return publication
 
 
 def generateSubscription(constraints, allowed):
     fields = np.random.choice(allowed, np.random.randint(0, len(allowed)), replace=False)
     subscriptions = {}
-    for field in fields:
-        subscriptions[field] = {
+    for fld in fields:
+        subscriptions[fld] = {
             'operator': None,
-            'value': PI.PublicationItem[field]()
+            'value': PI.PublicationItem[fld]()
         }
     for cons in constraints:
         subscriptions[cons['field']] = {
@@ -32,7 +32,7 @@ def generateSubscription(constraints, allowed):
     return subscriptions
 
 
-def updateSubscription(subscription, constraints, operators):
+def updateSubscription(subscription, constraints):
     for cons in constraints:
         subscription[cons['field']]['operator'] = cons['operator']
     for fld in subscription:
@@ -54,7 +54,7 @@ def operatorGenerator():
     while not Queue.empty():
         item = Queue.get()
         if item['type'] == 'sub':
-            results[item['index']] = updateSubscription(results[item['index']], item['constraints'], allowedOperators)
+            results[item['index']] = updateSubscription(results[item['index']], item['constraints'])
 
 
 def generate(generator):
@@ -120,6 +120,10 @@ if __name__ == "__main__":
             percent = np.random.uniform(percent + EPS, 100)
         elif constraint['operator'] == ">=":
             percent = np.random.uniform(percent, 100)
+        elif constraint['operator'] == "!=":
+            rd = np.random.uniform(0, 100)
+            while abs(percent - rd) < EPS:
+                rd = np.random.uniform(0, 100)
 
         indices = np.random.choice(subscriptionIndices, round(percent * len(subscriptionIndices) / 100), replace=False)
 
@@ -165,6 +169,10 @@ if __name__ == "__main__":
             percent = np.random.uniform(percent + EPS, 100)
         elif constraint['operator'] == ">=":
             percent = np.random.uniform(percent, 100)
+        elif constraint['operator'] == "!=":
+            rd = np.random.uniform(0, 100)
+            while abs(percent - rd) < EPS:
+                rd = np.random.uniform(0, 100)
 
         indices = np.random.choice(fieldIndices[constraint['field']],
                                    round(percent * len(fieldIndices[constraint['field']]) / 100), replace=False)

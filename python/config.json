@@ -5,7 +5,7 @@
     {
       "type": "field",
       "field": "temperature",
-      "operator": "=",
+      "operator": "!=",
       "percent": 50
     },
     {
