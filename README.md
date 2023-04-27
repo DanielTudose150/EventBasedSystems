@@ -54,6 +54,7 @@ An experiment where the program generated 20000 publications and subcriptions wa
 
 ![Time comparison](python/threads.png)
 
+The same graphic but viewed with 0 seconds at the minimum.
 ![Time comparison from zero](python/threads0.png)
 
 We can observe that spreading the work between multiple processes is improving the execution time but a too great of an increase has diminishing returns for this experiment. This is easily seen as have a steep decline in execution time from 1 process to 4 followed by an increase in execution time that is still lower than the single process execution time.
