@@ -1,184 +1,165 @@
 {
-  "publications": [],
-  "subscriptions": [
-    {
-      "stationid": {
-        "operator": ">=",
-        "value": 6
-      },
-      "rain": {
-        "operator": "=",
-        "value": 0.7
-      },
-      "direction": {
-        "operator": "!=",
-        "value": "NE"
-      },
-      "city": {
-        "operator": "!=",
-        "value": "Timisoara"
-      },
-      "wind": {
-        "operator": "=",
-        "value": 49
-      }
-    },
-    {
-      "city": {
-        "operator": "!=",
-        "value": "Craiova"
-      },
-      "stationid": {
-        "operator": "=",
-        "value": 5
-      },
-      "date": {
-        "operator": "=",
-        "value": "2023-09-9"
-      },
-      "rain": {
-        "operator": "!=",
-        "value": 0.8
-      }
-    },
-    {
-      "city": {
-        "operator": "!=",
-        "value": "Bucharest"
-      },
-      "direction": {
-        "operator": "!=",
-        "value": "NW"
-      },
-      "date": {
-        "operator": "=",
-        "value": "2023-09-28"
-      },
-      "stationid": {
-        "operator": "<=",
-        "value": 8
-      },
-      "temperature": {
-        "operator": ">",
-        "value": 7
-      },
-      "wind": {
-        "operator": "=",
-        "value": 1
-      }
-    },
-    {
-      "rain": {
-        "operator": ">",
-        "value": 0.8
-      },
-      "date": {
-        "operator": "!=",
-        "value": "2023-12-28"
-      },
-      "direction": {
-        "operator": "!=",
-        "value": "E"
-      },
-      "temperature": {
-        "operator": "<",
-        "value": 9
-      },
-      "wind": {
-        "operator": "<",
-        "value": 34
-      }
-    },
-    {
-      "date": {
-        "operator": "=",
-        "value": "2023-02-16"
-      },
-      "temperature": {
-        "operator": "!=",
-        "value": 14
-      },
-      "wind": {
-        "operator": ">=",
-        "value": 39
-      }
-    },
-    {
-      "rain": {
-        "operator": "<",
-        "value": 0.2
-      },
-      "date": {
-        "operator": "!=",
-        "value": "2023-05-28"
-      },
-      "stationid": {
-        "operator": ">=",
-        "value": 3
-      },
-      "direction": {
-        "operator": "!=",
-        "value": "NE"
-      },
-      "temperature": {
-        "operator": "=",
-        "value": 13
-      },
-      "wind": {
-        "operator": "=",
-        "value": 2
-      }
-    },
-    {
-      "city": {
-        "operator": "=",
-        "value": "Cluj-Napoca"
-      }
-    },
-    {},
-    {
-      "rain": {
-        "operator": "<=",
-        "value": 0.4
-      },
-      "direction": {
-        "operator": "!=",
-        "value": "W"
-      },
-      "date": {
-        "operator": "!=",
-        "value": "2023-11-11"
-      },
-      "city": {
-        "operator": "=",
-        "value": "Cluj-Napoca"
-      },
-      "temperature": {
-        "operator": "!=",
-        "value": -2
-      },
-      "wind": {
-        "operator": "=",
-        "value": 42
-      }
-    },
-    {
-      "direction": {
-        "operator": "=",
-        "value": "N"
-      },
-      "rain": {
-        "operator": "!=",
-        "value": 0.9
-      },
-      "city": {
-        "operator": "!=",
-        "value": "Iasi"
-      },
-      "date": {
-        "operator": "!=",
-        "value": "2023-06-6"
-      }
-    }
-  ]
+    "publications": [],
+    "subscriptions": [
+        {
+            "city": {
+                "operator": "!=",
+                "value": "Bucharest"
+            },
+            "rain": {
+                "operator": "!=",
+                "value": 0.6
+            }
+        },
+        {
+            "temperature": {
+                "operator": "=",
+                "value": 18
+            },
+            "city": {
+                "operator": "!=",
+                "value": "Brasov"
+            },
+            "wind": {
+                "operator": "<",
+                "value": 32
+            },
+            "rain": {
+                "operator": "!=",
+                "value": 0.6
+            }
+        },
+        {
+            "direction": {
+                "operator": "=",
+                "value": "E"
+            },
+            "date": {
+                "operator": "!=",
+                "value": "2023-11-25"
+            },
+            "temperature": {
+                "operator": "=",
+                "value": 20
+            },
+            "city": {
+                "operator": "=",
+                "value": "Craiova"
+            },
+            "wind": {
+                "operator": ">=",
+                "value": 26
+            }
+        },
+        {
+            "date": {
+                "operator": "!=",
+                "value": "2023-08-19"
+            },
+            "direction": {
+                "operator": "!=",
+                "value": "NE"
+            },
+            "rain": {
+                "operator": "!=",
+                "value": 0.7
+            }
+        },
+        {
+            "stationid": {
+                "operator": "=",
+                "value": 2
+            },
+            "temperature": {
+                "operator": "=",
+                "value": 24
+            },
+            "city": {
+                "operator": "!=",
+                "value": "Constanta"
+            }
+        },
+        {
+            "temperature": {
+                "operator": ">",
+                "value": 9
+            },
+            "city": {
+                "operator": "!=",
+                "value": "Cluj-Napoca"
+            }
+        },
+        {
+            "direction": {
+                "operator": "=",
+                "value": "E"
+            },
+            "city": {
+                "operator": "=",
+                "value": "Iasi"
+            },
+            "rain": {
+                "operator": "<=",
+                "value": 0.2
+            }
+        },
+        {
+            "temperature": {
+                "operator": ">",
+                "value": 19
+            },
+            "city": {
+                "operator": "=",
+                "value": "Brasov"
+            }
+        },
+        {
+            "date": {
+                "operator": "=",
+                "value": "2023-11-21"
+            },
+            "direction": {
+                "operator": "!=",
+                "value": "NW"
+            },
+            "city": {
+                "operator": "=",
+                "value": "Oradea"
+            },
+            "wind": {
+                "operator": "!=",
+                "value": 32
+            },
+            "rain": {
+                "operator": ">=",
+                "value": 0.8
+            }
+        },
+        {
+            "stationid": {
+                "operator": "!=",
+                "value": 9
+            },
+            "direction": {
+                "operator": "!=",
+                "value": "W"
+            },
+            "temperature": {
+                "operator": "<",
+                "value": 7
+            },
+            "city": {
+                "operator": "=",
+                "value": "Bucharest"
+            },
+            "wind": {
+                "operator": "<=",
+                "value": 46
+            },
+            "rain": {
+                "operator": "=",
+                "value": 0.4
+            }
+        }
+    ]
 }

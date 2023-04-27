@@ -3,16 +3,46 @@
   "subscriptions": 10,
   "constraints": [
     {
-      "type": "field",
+      "type": "frequency",
       "field": "temperature",
-      "operator": "!=",
+      "operator": "=",
+      "percent": 60
+    },
+    {
+      "type": "operator",
+      "field": "temperature",
+      "operator": "=",
       "percent": 50
     },
     {
-      "type": "field",
-      "field": "wind",
+      "type": "frequency",
+      "field": "city",
+      "operator": ">=",
+      "percent": 80
+    },
+    {
+      "type": "operator",
+      "field": "city",
       "operator": "=",
-      "percent": 60
+      "percent": 50
+    },
+    {
+      "type": "frequency",
+      "field": "wind",
+      "operator": "<=",
+      "percent": 50
+    },
+    {
+      "type": "operator",
+      "field": "wind",
+      "operator": "<",
+      "percent": 80
+    },
+    {
+      "type": "frequency",
+      "field": "rain",
+      "operator": "<=",
+      "percent": 90
     }
   ],
   "threads": 1

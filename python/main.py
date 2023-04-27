@@ -2,9 +2,9 @@ import numpy as np
 import PublicationItem as PI
 import json
 import time
-import queue
-import threading
+import multiprocessing as mp
 import Operators as O
+import math
 
 EPS = 10e-6
 
@@ -18,21 +18,21 @@ def generatePublication():
 
 def generateSubscription(constraints, allowed):
     fields = np.random.choice(allowed, np.random.randint(0, len(allowed)), replace=False)
-    subscriptions = {}
+    subscription = {}
     for fld in fields:
-        subscriptions[fld] = {
+        subscription[fld] = {
             'operator': None,
             'value': PI.PublicationItem[fld]()
         }
     for cons in constraints:
-        subscriptions[cons['field']] = {
+        subscription[cons['field']] = {
             'operator': cons['operator'],
             'value': PI.PublicationItem[cons['field']]()
         }
-    return subscriptions
+    return subscription
 
 
-def updateSubscription(subscription, constraints):
+def updateSubscription(subscription, constraints, allowedOperators):
     for cons in constraints:
         subscription[cons['field']]['operator'] = cons['operator']
     for fld in subscription:
@@ -41,35 +41,39 @@ def updateSubscription(subscription, constraints):
     return subscription
 
 
-def frequencyGenerator():
-    while not Queue.empty():
-        item = Queue.get()
+def frequencyGenerator(q_in, q_out, results, allowed):
+    while not q_in.empty():
+        item = q_in.get()
         if item['type'] == 'pub':
-            results[item['index']] = generatePublication()
+            q_out.put((item['index'], generatePublication()))
         else:
-            results[item['index']] = generateSubscription(item['constraints'], allowedFields)
+            q_out.put((item['index'], generateSubscription(item['constraints'], allowed)))
+        q_in.task_done()
 
 
-def operatorGenerator():
-    while not Queue.empty():
-        item = Queue.get()
+def operatorGenerator(q_in, q_out, results, allowed):
+    while not q_in.empty():
+        item = q_in.get()
         if item['type'] == 'sub':
-            results[item['index']] = updateSubscription(results[item['index']], item['constraints'])
+            q_out.put((item['index'], updateSubscription(results[item['index']], item['constraints'], allowed)))
+        q_in.task_done()
 
 
-def generate(generator):
+def generate(q_in, q_out, generator, results, allowed):
     threads = []
     for i in range(config['threads']):
-        thread = threading.Thread(target=generator)
+        thread = mp.Process(target=generator, args=(q_in, q_out, results, allowed))
         threads.append(thread)
         threads[-1].start()
 
-    for thread in threads:
-        thread.join()
+    q_in.join()
+
+    while not q_out.empty():
+        item = q_out.get()
+        results[item[0]] = item[1]
 
 
 if __name__ == "__main__":
-
     startTime = time.time()
     """
     publications: number
@@ -125,7 +129,7 @@ if __name__ == "__main__":
             while abs(percent - rd) < EPS:
                 rd = np.random.uniform(0, 100)
 
-        indices = np.random.choice(subscriptionIndices, round(percent * len(subscriptionIndices) / 100), replace=False)
+        indices = np.random.choice(subscriptionIndices, math.ceil(percent * len(subscriptionIndices) / 100), replace=False)
 
         queueConstraint = {
             'field': constraint['field'],
@@ -138,11 +142,13 @@ if __name__ == "__main__":
         for index in indices:
             toGenerate[index]['constraints'].append(queueConstraint)
 
-    Queue = queue.Queue()
+    Queue = mp.JoinableQueue()
+    Out = mp.Queue()
+
     for element in toGenerate:
         Queue.put(element)
 
-    generate(frequencyGenerator)
+    generate(Queue, Out, frequencyGenerator, results, allowedFields)
 
     fieldIndices = {}
     allowedOperators = {}
@@ -175,7 +181,7 @@ if __name__ == "__main__":
                 rd = np.random.uniform(0, 100)
 
         indices = np.random.choice(fieldIndices[constraint['field']],
-                                   round(percent * len(fieldIndices[constraint['field']]) / 100), replace=False)
+                                   math.ceil(percent * len(fieldIndices[constraint['field']]) / 100), replace=False)
 
         queueConstraint = {
             'field': constraint['field'],
@@ -188,10 +194,12 @@ if __name__ == "__main__":
         for index in indices:
             toGenerate[index]['constraints'].append(queueConstraint)
 
+    Queue = mp.JoinableQueue()
+    Out = mp.Queue()
     for index in subscriptionIndices:
         Queue.put(toGenerate[index])
 
-    generate(operatorGenerator)
+    generate(Queue, Out, operatorGenerator, results, allowedOperators)
 
     finalResults = {
         "publications": results[:config['publications']],
@@ -206,4 +214,4 @@ if __name__ == "__main__":
         fd.write(f"Time taken = {endTime - startTime}")
 
     with open('results.json', 'w') as fd:
-        json.dump(finalResults, fd, indent=2)
+        json.dump(finalResults, fd, indent=4)
