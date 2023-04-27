@@ -46,4 +46,14 @@ The program will output a *json* file named ***results.json*** which will contai
 }
 ```
 
-And it will also create a ***time.txt*** containing the time in seconds it took to run.
+And it will also create a ***[no.processes].txt*** containing the time in seconds it took to run and the number of processes it realized the task with.
+
+## Time comparison
+
+An experiment where the program generated 20000 publications and subcriptions was executed to test how the number of processes affected the performance.
+
+![Time comparison](python/threads.png)
+
+![Time comparison from zero](python/threads0.png)
+
+We can observe that spreading the work between multiple processes is improving the execution time but a too great of an increase has diminishing returns for this experiment. This is easily seen as have a steep decline in execution time from 1 process to 4 followed by an increase in execution time that is still lower than the single process execution time.
