@@ -31,7 +31,7 @@ Where:
         * *operator* means that the from the generated subscriptions with that field, a certain amount need to have the specified operator
     * **field** represents the publication field that will constrained and takes values from the specified publication fields
     * **operator**
-        * If the type is **frequency**, it will represent the relation between the given percentage and the total amount of subscriptions
+        * If the type is **frequency**, it will represent the ratio between the given percentage and the total amount of subscriptions
         * Otherwise, it will represent the type of operator that needs to appear in the constrained generated subscriptions
     * **percent** represents the percentage of subscriptions that the constrains will be applied on
 * **threads**: represents an integer on the amount of threads to run the program

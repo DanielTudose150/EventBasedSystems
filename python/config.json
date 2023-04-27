@@ -1,6 +1,6 @@
 {
-  "publications": 0,
-  "subscriptions": 10,
+  "publications": 20000,
+  "subscriptions": 20000,
   "constraints": [
     {
       "type": "frequency",
@@ -45,5 +45,5 @@
       "percent": 90
     }
   ],
-  "threads": 1
+  "threads": 4
 }

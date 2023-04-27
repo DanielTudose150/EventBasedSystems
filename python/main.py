@@ -32,12 +32,12 @@ def generateSubscription(constraints, allowed):
     return subscription
 
 
-def updateSubscription(subscription, constraints, allowedOperators):
+def updateSubscription(subscription, constraints, allowed):
     for cons in constraints:
         subscription[cons['field']]['operator'] = cons['operator']
     for fld in subscription:
         if subscription[fld]['operator'] is None:
-            subscription[fld]['operator'] = str(np.random.choice(allowedOperators[fld]))
+            subscription[fld]['operator'] = str(np.random.choice(allowed[fld]))
     return subscription
 
 
@@ -55,6 +55,7 @@ def operatorGenerator(q_in, q_out, results, allowed):
     while not q_in.empty():
         item = q_in.get()
         if item['type'] == 'sub':
+            print(item['index'])
             q_out.put((item['index'], updateSubscription(results[item['index']], item['constraints'], allowed)))
         q_in.task_done()
 
@@ -64,7 +65,7 @@ def generate(q_in, q_out, generator, results, allowed):
     for i in range(config['threads']):
         thread = mp.Process(target=generator, args=(q_in, q_out, results, allowed))
         threads.append(thread)
-        threads[-1].start()
+        thread.start()
 
     q_in.join()
 
@@ -143,12 +144,13 @@ if __name__ == "__main__":
             toGenerate[index]['constraints'].append(queueConstraint)
 
     Queue = mp.JoinableQueue()
-    Out = mp.Queue()
+    Out = mp.Manager().Queue()
 
     for element in toGenerate:
         Queue.put(element)
-
+    print("Starting to generate frequency related")
     generate(Queue, Out, frequencyGenerator, results, allowedFields)
+    print("finished generating")
 
     fieldIndices = {}
     allowedOperators = {}
@@ -167,19 +169,6 @@ if __name__ == "__main__":
 
         percent = constraint['percent']
 
-        if constraint['operator'] == "<":
-            percent = np.random.uniform(EPS, percent)
-        elif constraint['operator'] == "<=":
-            percent = np.random.uniform(EPS, percent + EPS)
-        elif constraint['operator'] == ">":
-            percent = np.random.uniform(percent + EPS, 100)
-        elif constraint['operator'] == ">=":
-            percent = np.random.uniform(percent, 100)
-        elif constraint['operator'] == "!=":
-            rd = np.random.uniform(0, 100)
-            while abs(percent - rd) < EPS:
-                rd = np.random.uniform(0, 100)
-
         indices = np.random.choice(fieldIndices[constraint['field']],
                                    math.ceil(percent * len(fieldIndices[constraint['field']]) / 100), replace=False)
 
@@ -195,12 +184,14 @@ if __name__ == "__main__":
             toGenerate[index]['constraints'].append(queueConstraint)
 
     Queue = mp.JoinableQueue()
-    Out = mp.Queue()
+    Out = mp.Manager().Queue()
+
     for index in subscriptionIndices:
         Queue.put(toGenerate[index])
 
+    print("Starting to update")
     generate(Queue, Out, operatorGenerator, results, allowedOperators)
-
+    print("finished uptading")
     finalResults = {
         "publications": results[:config['publications']],
         "subscriptions": results[config['publications']:]
@@ -210,8 +201,8 @@ if __name__ == "__main__":
 
     print(f"Time taken = {endTime - startTime}")
 
-    with open('time.txt', 'w') as fd:
-        fd.write(f"Time taken = {endTime - startTime}")
+    with open(f"{config['threads']}.txt", 'w') as fd:
+        fd.write(f"{config['threads']},{endTime - startTime}")
 
     with open('results.json', 'w') as fd:
         json.dump(finalResults, fd, indent=4)
